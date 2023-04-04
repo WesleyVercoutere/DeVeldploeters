@@ -1,0 +1,53 @@
+<div class="container stretch bg-light p-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form #editForm="ngForm" (ngSubmit)="save()" name="editForm" novalidate role="form">
+                <div class="clearfix">
+                    <div class="float-md-left">
+                        <h2><span> Bannerfoto toevoegen </span></h2>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div>
+                    <jhi-alert-error></jhi-alert-error>
+                    <div class="form-group p-3">
+                        <label class="form-control-label" for="field_image">Image</label>
+                        <div>
+                            <img *ngIf="bannerImage.image"
+                                 [src]="'data:' + bannerImage.imageContentType + ';base64,' + bannerImage.image"
+                                 alt="bannerImage image"
+                                 class="img-fluid"/>
+                            <div *ngIf="bannerImage.image" class="form-text text-danger clearfix">
+                                <span class="pull-left">{{bannerImage.imageContentType}}
+                                    , {{byteSize(bannerImage.image)}}</span>
+                                <button (click)="clearInputImage('image', 'imageContentType', 'fileImage')"
+                                        class="btn btn-secondary btn-xs pull-right"
+                                        type="button">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                </button>
+                            </div>
+                            <input (change)="setFileData($event, bannerImage, 'image', true)" accept="image/*"
+                                   id="file_image" type="file"/>
+                        </div>
+                        <input [(ngModel)]="bannerImage.image" class="form-control" id="field_image" name="image"
+                               type="hidden"/>
+                        <input [(ngModel)]="bannerImage.imageContentType" class="form-control" id="field_imageContentType" name="imageContentType"
+                               type="hidden"/>
+                    </div>
+
+                </div>
+                <div>
+                    <button (click)="previousState()" class="btn btn-secondary" id="cancel-save" type="button">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuleren</span>
+                    </button>
+                    <button [disabled]="editForm.form.invalid || isSaving || disableSave" class="btn btn-primary" id="save-entity"
+                            type="submit">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Opslaan</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

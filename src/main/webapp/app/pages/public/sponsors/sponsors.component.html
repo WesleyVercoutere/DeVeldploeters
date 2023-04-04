@@ -1,0 +1,32 @@
+<div class="container stretch text-white p-3">
+
+    <div *ngFor="let sponsor of sponsors" class="card text-white m-3">
+        <div class="card-header">
+            <div class="d-flex flex-row justify-content-between row-hl">
+                <div class="p-2 item-hl"><h3>{{sponsor.name}}</h3></div>
+                <div class="p-2 item-hl"><h3><a [href]=sponsor.website target="_blank"><span>{{sponsor.website}}</span></a>
+                </h3></div>
+            </div>
+
+        </div>
+
+        <div class="card-body">
+            <div *ngIf="sponsor.logo">
+                <img [src]="'data:' + sponsor.logoContentType + ';base64,' + sponsor.logo" alt="sponsor image"
+                     class="img-logo"/>
+            </div>
+
+            <div class="mb-5"></div>
+
+            <div *ngIf="sponsor.websiteImage">
+                <img [src]="'data:' + sponsor.websiteImageContentType + ';base64,' + sponsor.websiteImage"
+                     alt="sponsor image"
+                     class="img-fluid"/>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+

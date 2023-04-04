@@ -1,0 +1,13 @@
+<div class="container stretch" id="containerWidth">
+    <img [ngStyle]="{'height.px': imgHeight}"
+         [src]="'data:' + bannerImage.imageContentType + ';base64,' + bannerImage.image"
+         alt="banner image"
+         class="img-fluid"/>
+
+    <div class="p-3">
+        <button (click)="previousState()" class="btn btn-info" type="submit">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Terug</span>
+        </button>
+    </div>
+
+</div>

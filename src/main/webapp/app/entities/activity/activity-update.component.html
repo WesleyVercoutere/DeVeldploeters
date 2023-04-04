@@ -1,0 +1,264 @@
+<div class="container stretch bg-light py-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+
+            <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+                <div class="clearfix">
+                    <div class="float-md-left">
+                        <h2><span> Activiteit wijzigen </span></h2>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div>
+                    <jhi-alert-error></jhi-alert-error>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_title">Titel</label>
+                        <input type="text"
+                               class="form-control"
+                               name="title"
+                               id="field_title"
+                               [(ngModel)]="activity.title"
+                               required
+                        />
+                    </div>
+
+                    <div *ngIf="activity.type == 'event'">
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_date">Datum</label>
+                                    <div class="input-group">
+                                        <input id="field_date"
+                                               type="text"
+                                               class="form-control"
+                                               name="date"
+                                               ngbDatepicker
+                                               #dateDp="ngbDatepicker"
+                                               [(ngModel)]="activity.date"
+                                               required
+                                        />
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_endDate">Tot datum</label>
+                                    <div class="input-group">
+                                        <input id="field_endDate"
+                                               type="text"
+                                               class="form-control"
+                                               name="endDate"
+                                               ngbDatepicker
+                                               #endDateDp="ngbDatepicker"
+                                               [(ngModel)]="activity.endDate"
+                                        />
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_time">Start tijd evenement</label>
+                                    <div class="d-flex">
+                                        <input id="field_time"
+                                               type="time"
+                                               class="form-control"
+                                               name="time"
+                                               [(ngModel)]="activity.time"
+                                               placeholder="HH:mm"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="activity.type == 'tour'">
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_date_tour">Datum</label>
+                                    <div class="input-group">
+                                        <input id="field_date_tour"
+                                               type="text"
+                                               class="form-control"
+                                               name="date"
+                                               ngbDatepicker
+                                               #dateDp="ngbDatepicker"
+                                               [(ngModel)]="activity.date"
+                                               required
+                                        />
+                                        <span class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col"></div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_time_tour">Vertrek aan de kaai: </label>
+                                    <div class="d-flex">
+                                        <input id="field_time_tour"
+                                               type="time"
+                                               class="form-control"
+                                               name="time"
+                                               [(ngModel)]="activity.time"
+                                               placeholder="HH:mm"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_time">Vertrek aan de inschrijving: </label>
+                                    <div class="d-flex">
+                                        <input id="field_start-time"
+                                               type="time"
+                                               class="form-control"
+                                               name="start-time"
+                                               [(ngModel)]="activity.startTime"
+                                               placeholder="HH:mm"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="form-group">
+                        <label class="form-control-label font-weight-bold">Adres</label>
+
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_location">Locatie</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="location"
+                                   id="field_location"
+                                   [(ngModel)]="activity.location"
+                                   placeholder="Locatie"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_street">Straat</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="street"
+                                   id="field_street"
+                                   [(ngModel)]="activity.street"
+                                   placeholder="Straat"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_number">Nummer</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="number"
+                                   id="field_number"
+                                   [(ngModel)]="activity.number"
+                                   placeholder="Nummer"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_zip">Postcode</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="zip"
+                                   id="field_zip"
+                                   [(ngModel)]="activity.zip"
+                                   placeholder="Postcode"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_city">Plaats</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="city"
+                                   id="field_city"
+                                   [(ngModel)]="activity.city"
+                                   placeholder="Plaats"
+                            />
+                        </div>
+
+                        <br/>
+                    </div>
+
+                    <div class="form-group" *ngIf="activity.type == 'tour'">
+                        <Label class="form-control-label font-weight-bold">Organisatie</Label>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_name">Naam</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="name"
+                                   id="field_name"
+                                   [(ngModel)]="activity.name"
+                                   placeholder="Naam"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_www">Website</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="www"
+                                   id="field_www"
+                                   [(ngModel)]="activity.website"
+                                   placeholder="website"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_email">E-mail</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="email"
+                                   id="field_email"
+                                   [(ngModel)]="activity.email"
+                                   placeholder="e-mail"
+                            />
+                        </div>
+                    </div>
+
+                    <br/>
+                </div>
+
+                <div>
+                    <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuleren</span>
+                    </button>
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Opslaan</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+@import '../../../content/scss/bootstrap-variables';
+
+.container {
+  background-color: $darkOpacity;
+}
+
+.img-fluid {
+  max-width: 100%;
+  width: auto;
+  margin: 0px auto;
+  object-fit: cover;
+  object-position: center;
+}

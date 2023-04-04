@@ -1,0 +1,18 @@
+<div class="container stretch bg-light p-3">
+    <full-calendar
+        #calendar
+        (dateClick)="handleDateClick($event)"
+        (eventClick)="handleEventClick($event)"
+        [events]="activities"
+        [firstDay]="firstDay"
+        [header]="{
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        }"
+        [locale]="locale"
+        [plugins]="calendarPlugins"
+        defaultView="dayGridMonth"
+
+    ></full-calendar>
+</div>

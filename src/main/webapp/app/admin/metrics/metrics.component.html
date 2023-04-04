@@ -1,0 +1,66 @@
+<div class="container stretch bg-light p-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="clearfix">
+                <h2>
+                    <span id="user-management-page-heading">Application Metrics</span>
+                    <button (click)="refresh()" class="btn btn-primary float-right jh-create-entity" [routerLink]="['./new']">
+                        <fa-icon [icon]="'sync'"></fa-icon> <span>Refresh</span>
+                    </button>
+                </h2>
+            </div>
+
+            <hr/>
+
+            <h3>JVM Metrics</h3>
+            <div *ngIf="!updatingMetrics" class="row">
+                <jhi-jvm-memory
+                    [jvmMemoryMetrics]="metrics.jvm"
+                    [updating]="updatingMetrics"
+                    class="col-md-4">
+                </jhi-jvm-memory>
+                <jhi-jvm-threads [threadData]="threadData" class="col-md-4"></jhi-jvm-threads>
+                <jhi-metrics-system
+                    [systemMetrics]="metrics.processMetrics"
+                    [updating]="updatingMetrics"
+                    class="col-md-4">
+                </jhi-metrics-system>
+            </div>
+
+            <div *ngIf="isObjectExisting(metrics, 'garbageCollector')">
+                <h3>Garbage collector statistics</h3>
+                <jhi-metrics-garbagecollector [garbageCollectorMetrics]="metrics.garbageCollector"
+                                              [updating]="updatingMetrics"></jhi-metrics-garbagecollector>
+            </div>
+
+            <div *ngIf="updatingMetrics" class="well well-lg">Updating...</div>
+
+            <jhi-metrics-request
+                *ngIf="isObjectExisting(metrics, 'http.server.requests')"
+                [requestMetrics]="metrics['http.server.requests']"
+                [updating]="updatingMetrics">
+            </jhi-metrics-request>
+
+            <div>
+                <jhi-metrics-endpoints-requests
+                    *ngIf="isObjectExisting(metrics, 'services')"
+                    [endpointsRequestsMetrics]="metrics.services"
+                    [updating]="updatingMetrics">
+                </jhi-metrics-endpoints-requests>
+
+                <jhi-metrics-cache
+                    *ngIf="isObjectExisting(metrics, 'cache')"
+                    [cacheMetrics]="metrics.cache"
+                    [updating]="updatingMetrics">
+                </jhi-metrics-cache>
+
+                <jhi-metrics-datasource
+                    *ngIf="isObjectExistingAndNotEmpty(metrics, 'databases')"
+                    [datasourceMetrics]="metrics.databases"
+                    [updating]="updatingMetrics">
+                </jhi-metrics-datasource>
+
+            </div>
+        </div>
+    </div>
+</div>

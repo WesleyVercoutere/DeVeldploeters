@@ -1,0 +1,100 @@
+<div class="container stretch bg-light p-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form #editForm="ngForm" (ngSubmit)="save()" name="editForm" novalidate role="form">
+                <div class="clearfix" *ngIf="sponsor.id != null">
+                    <div class="float-md-left">
+                        <h2><span> Wijzigen sponsor </span></h2>
+                    </div>
+                </div>
+
+                <div class="clearfix" *ngIf="sponsor.id == null">
+                    <div class="float-md-left">
+                        <h2><span> Nieuw sponsor </span></h2>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div>
+                    <jhi-alert-error></jhi-alert-error>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_name">Naam</label>
+                        <input [(ngModel)]="sponsor.name" class="form-control" id="field_name" name="name"
+                               type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_website">Website</label>
+                        <input [(ngModel)]="sponsor.website" class="form-control" id="field_website" name="website"
+                               type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_websiteImage">Website Image</label>
+
+                        <div>
+                            <img *ngIf="sponsor.websiteImage"
+                                 [src]="'data:' + sponsor.websiteImageContentType + ';base64,' + sponsor.websiteImage"
+                                 alt="sponsor image" class="img-fluid"/>
+                            <div *ngIf="sponsor.websiteImage" class="form-text text-danger clearfix">
+                                <span class="pull-left">{{sponsor.websiteImageContentType}}
+                                    , {{byteSize(sponsor.websiteImage)}}</span>
+                                <button (click)="clearInputImage('websiteImage', 'websiteImageContentType', 'fileImage')"
+                                        class="btn btn-secondary btn-xs pull-right"
+                                        type="button">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                </button>
+                            </div>
+                            <input (change)="setFileData($event, sponsor, 'websiteImage', true)" accept="image/*"
+                                   id="file_websiteImage" type="file"/>
+                        </div>
+
+                        <input [(ngModel)]="sponsor.websiteImage" class="form-control" id="field_websiteImage" name="websiteImage"
+                               type="hidden"/>
+                        <input [(ngModel)]="sponsor.websiteImageContentType" class="form-control" id="field_websiteImageContentType"
+                               name="websiteImageContentType"
+                               type="hidden"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_logo">Logo</label>
+
+                        <div>
+                            <img *ngIf="sponsor.logo" [src]="'data:' + sponsor.logoContentType + ';base64,' + sponsor.logo"
+                                 alt="sponsor image" class="img-fluid"/>
+
+                            <div *ngIf="sponsor.logo" class="form-text text-danger clearfix">
+                                <span class="pull-left">{{sponsor.logoContentType}}, {{byteSize(sponsor.logo)}}</span>
+                                <button (click)="clearInputImage('logo', 'logoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right"
+                                        type="button">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                </button>
+                            </div>
+
+                            <input (change)="setFileData($event, sponsor, 'logo', true)" accept="image/*" id="file_logo"
+                                   type="file"/>
+                        </div>
+
+                        <input [(ngModel)]="sponsor.logo" class="form-control" id="field_logo" name="logo"
+                               type="hidden"/>
+                        <input [(ngModel)]="sponsor.logoContentType" class="form-control" id="field_logoContentType" name="logoContentType"
+                               type="hidden"/>
+                    </div>
+
+                    <div>
+                        <button (click)="previousState()" class="btn btn-secondary" id="cancel-save" type="button">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuleren</span>
+                        </button>
+                        <button [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary" id="save-entity"
+                                type="submit">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Opslaan</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

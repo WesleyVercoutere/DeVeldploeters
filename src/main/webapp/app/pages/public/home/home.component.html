@@ -1,0 +1,33 @@
+<div>
+
+    <div class="container stretch p-0 m-auto" id="containerWidth">
+
+        <ngb-carousel *ngIf="images != null" id="images">
+            <ng-template *ngFor="let image of images" ngbSlide>
+                <img [ngStyle]="{'height.px': imgHeight}"
+                     [src]="'data:' + image.imageContentType + ';base64,' + image.image"
+                     alt="Random first slide"
+                     class="img-fluid"/>
+            </ng-template>
+        </ngb-carousel>
+
+        <br/>
+
+        <div *ngFor="let report of reports">
+            <div class="card text-white m-3">
+
+                <div class="card-header"> {{report.date.format('DD-MM-YYYY')}} </div>
+
+                <div class="card-body">
+
+                    <h4 class="card-title"> {{report.title}} </h4>
+
+                    <div [innerHTML]="report.report"></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,87 @@
+<div class="container stretch bg-light p-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="clearfix">
+                <h2>
+                    <span id="user-management-page-heading">Leden</span>
+                    <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./new']">
+                        <fa-icon [icon]="'plus'"></fa-icon> <span>Nieuw lid</span>
+                    </button>
+                </h2>
+            </div>
+
+            <jhi-alert></jhi-alert>
+            <hr/>
+
+            <div *ngIf="users" class="table-responsive">
+                <table class="table table-striped table-borderless">
+                    <thead>
+                    <tr [(ascending)]="reverse" [(predicate)]="predicate" [callback]="transition.bind(this)" jhiSort>
+                        <th jhiSortBy="lastName"><span>Naam</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="firstName"><span>Voornaam</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="email"><span>Email</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th></th>
+                        <th><span>Profiel</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="users">
+                    <tr *ngFor="let user of users; trackBy: trackIdentity">
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <button (click)="setActive(user, true)" *ngIf="!user.activated" class="btn btn-danger btn-sm"
+                            >Deactivated
+                            </button>
+                            <button (click)="setActive(user, false)" *ngIf="user.activated"
+                                    [disabled]="currentAccount.login === user.login"
+                                    class="btn btn-success btn-sm">Activated
+                            </button>
+                        </td>
+
+                        <td>
+                            <div *ngFor="let authority of user.authorities">
+                                <span class="badge badge-info">{{ authority }}</span>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button [disabled]="currentAccount.login === user.login"
+                                        [routerLink]="['./', user.login, 'edit']"
+                                        class="btn btn-primary btn-sm"
+                                        queryParamsHandling="merge" type="submit">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Wijzigen</span>
+                                </button>
+                                <button (click)="deleteUser(user)" [disabled]="currentAccount.login === user.login"
+                                        class="btn btn-danger btn-sm" type="button">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Verwijderen</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="users">
+                <div class="row justify-content-center">
+                    <jhi-item-count [itemsPerPage]="itemsPerPage" [page]="page" [total]="totalItems"></jhi-item-count>
+                </div>
+                <div class="row justify-content-center">
+                    <ngb-pagination (pageChange)="loadPage(page)" [(page)]="page" [boundaryLinks]="true"
+                                    [collectionSize]="totalItems"
+                                    [maxSize]="5" [pageSize]="itemsPerPage" [rotate]="true"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

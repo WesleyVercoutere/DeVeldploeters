@@ -1,0 +1,53 @@
+<div class="container stretch bg-light p-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div *ngIf="sponsor">
+                <div class="clearfix">
+                    <div class="float-md-left">
+                        <h2><span> {{sponsor.name}} </span></h2>
+                    </div>
+                </div>
+
+                <hr>
+
+                <jhi-alert-error></jhi-alert-error>
+
+                <dl class="row-md jh-entity-details">
+                    <dt><span>Website</span></dt>
+                    <dd>
+                        <a [href]=sponsor.website target="_blank"><span>{{sponsor.website}}</span></a>
+                    </dd>
+
+                    <dt><span>Website Image</span></dt>
+                    <dd>
+                        <div *ngIf="sponsor.websiteImage">
+                            <img [src]="'data:' + sponsor.websiteImageContentType + ';base64,' + sponsor.websiteImage"
+                                 alt="sponsor image"
+                                 class="img-fluid"/>
+                        </div>
+                    </dd>
+
+                    <dt><span>Logo</span></dt>
+                    <dd>
+                        <div *ngIf="sponsor.logo">
+                            <img [src]="'data:' + sponsor.logoContentType + ';base64,' + sponsor.logo" alt="sponsor image"
+                                 class="img-fluid"/>
+                        </div>
+                    </dd>
+                </dl>
+
+                <button (click)="previousState()"
+                        class="btn btn-info"
+                        type="submit">
+                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Terug</span>
+                </button>
+
+                <button [routerLink]="['/sponsor', sponsor.id, 'edit']"
+                        class="btn btn-primary"
+                        type="button">
+                    <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Wijzigen</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

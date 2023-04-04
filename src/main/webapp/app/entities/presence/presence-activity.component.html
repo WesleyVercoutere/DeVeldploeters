@@ -1,0 +1,62 @@
+<div class="container stretch bg-light py-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+
+            <h2 id="page-heading" *ngIf="activity">
+                <span> {{ activity.title }} </span>
+                <button id="jh-create-entity"
+                        class="btn btn-primary float-right jh-create-entity create-presence"
+                        [routerLink]="['/', 'presence', { outlets: { popup: activity.id + '/addUser'} }]">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >
+                        Lid toevoegen
+                    </span>
+                </button>
+            </h2>
+
+<!--            <jhi-alert></jhi-alert>-->
+
+            <br/>
+
+            <div class="table-responsive" *ngIf="attendances">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span>Naam</span></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let presence of attendances">
+                        <td>{{presence.username}}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" (click)="setActive(presence)" *ngIf="!presence.present">
+                                Afwezig
+                            </button>
+
+                            <button class="btn btn-success btn-sm" (click)="setActive(presence)" *ngIf="presence.present">
+                                Aanwezig
+                            </button>
+                        </td>
+                        <td>
+                            <button type="submit"
+                                    [routerLink]="['/', 'presence', { outlets: { popup: presence.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline">
+                                    Verwijderen
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

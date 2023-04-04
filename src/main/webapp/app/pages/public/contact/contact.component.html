@@ -1,0 +1,100 @@
+<div class="container stretch bg-dark text-white p-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form #editForm="ngForm" (ngSubmit)="send()" name="editForm" novalidate role="form">
+                <div class="clearfix">
+                    <h2 id="jhi-ice-heading"> Contact </h2>
+                </div>
+
+                <hr class="bg-light"/>
+
+                <div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_lastName">Naam</label>
+                        <input [(ngModel)]="contact.lastName"
+                               class="form-control"
+                               id="field_lastName"
+                               name="lastName"
+                               type="text"
+                                [required]="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_firstName">Voornaam</label>
+                        <input [(ngModel)]="contact.firstName"
+                               class="form-control"
+                               id="field_firstName"
+                               name="firstName"
+                               type="text"
+                               [required]="true"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_email">E-mail</label>
+                        <input [(ngModel)]="contact.email"
+                               class="form-control"
+                               id="field_email"
+                               name="email"
+                               type="email"
+                               [email]="true"
+                               [required]="true"/>
+                    </div>
+                    <div class="form-group address">
+                        <label class="form-control-label" for="field_street">Straat</label>
+                        <input [(ngModel)]="contact.street"
+                               class="form-control"
+                               id="field_street"
+                               name="street"
+                               type="text"/>
+                    </div>
+                    <div class="form-group address">
+                        <label class="form-control-label" for="field_number">Nummer</label>
+                        <input [(ngModel)]="contact.number"
+                               class="form-control"
+                               id="field_number"
+                               name="number"
+                               type="text"/>
+                    </div>
+                    <div class="form-group address">
+                        <label class="form-control-label" for="field_zip">Postcode</label>
+                        <input [(ngModel)]="contact.zip"
+                               class="form-control"
+                               id="field_zip"
+                               name="zip"
+                               type="text"/>
+                    </div>
+                    <div class="form-group address">
+                        <label class="form-control-label" for="field_city">Plaats</label>
+                        <input [(ngModel)]="contact.city"
+                               class="form-control"
+                               id="field_city"
+                               name="city"
+                               type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_text">Bericht</label>
+                        <textarea [(ngModel)]="contact.text"
+                                  [rows]="5"
+                                  class="form-control"
+                                  id="field_text"
+                                  name="text"
+                                  type="text"
+                                  [required]="true">
+
+                        </textarea>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div>
+                    <button (click)="previousState()" class="btn btn-secondary" id="cancel-save" type="button">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuleren</span>
+                    </button>
+                    <button [disabled]="editForm.form.invalid || isSending" class="btn btn-primary" id="save-entity"
+                            type="submit">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Verzenden</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

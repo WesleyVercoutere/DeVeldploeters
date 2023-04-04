@@ -1,0 +1,137 @@
+<div class="container stretch bg-light py-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div *ngIf="activity">
+
+                <div class="clearfix">
+                    <div class="float-md-left">
+                        <h2><span> {{activity.title}} </span></h2>
+                    </div>
+
+                    <div class="float-md-right"  *ngIf="!tourHappened && presence">
+                        <button class="btn btn-danger" (click)="setPresence()" *ngIf="!presence.present">
+                            Afwezig
+                        </button>
+                        <button class="btn btn-success" (click)="setPresence()" *ngIf="presence.present">
+                            Aanwezig
+                        </button>
+                    </div>
+                </div>
+
+                <hr>
+
+                <jhi-alert-error></jhi-alert-error>
+
+                <dl class="row-md jh-entity-details" *ngIf="activity.type == 'tour'">
+                    <dt><span>Datum</span></dt>
+                    <dd>
+                        <span>{{activity.date.format('DD-MM-YYYY')}}</span>
+                    </dd>
+
+                    <dt><span>Vertrek aan de kaai</span></dt>
+                    <dd>
+                        <span>{{activity.time}}</span>
+                    </dd>
+
+                    <dt><span>Vertrek aan de inschrijving</span></dt>
+                    <dd>
+                        <span>{{activity.startTime}}</span>
+                    </dd>
+
+                    <br/>
+
+                    <dt><span>Adres</span></dt>
+                    <dd>
+                        <span>{{activity.location}}</span>
+                    </dd>
+                    <dd>
+                        <span>{{activity.street}} {{activity.number}}</span>
+                    </dd>
+                    <dd>
+                        <span>{{activity.zip}} - {{activity.city}}</span>
+                    </dd>
+
+                    <br/>
+
+                    <dt><span>Organisatie</span></dt>
+                    <dd>
+                        <span>{{activity.name}}</span>
+                    </dd>
+                    <dd>
+                        <span>{{activity.website}}</span>
+                    </dd>
+                    <dd>
+                        <span>{{activity.email}}</span>
+                    </dd>
+                </dl>
+
+                <dl class="row-md jh-entity-details" *ngIf="activity.type == 'event'">
+                    <dt><span>Datum</span></dt>
+                    <dd>
+                        <span>{{activity.date.format('DD-MM-YYYY')}}</span>
+                    </dd>
+
+                    <dt><span>Start evenement</span></dt>
+                    <dd>
+                        <span>{{activity.time}}</span>
+                    </dd>
+
+                    <dt><span>Adres</span></dt>
+                    <dd>
+                        <span>{{activity.location}}</span>
+                    </dd>
+                    <dd>
+                        <span>{{activity.street}} {{activity.number}}</span>
+                    </dd>
+                    <dd>
+                        <span>{{activity.zip}} - {{activity.city}}</span>
+                    </dd>
+                </dl>
+
+                <div>
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Terug</span>
+                    </button>
+                </div>
+
+                <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_BOARD']">
+                    <div class="mb-3"><hr/></div>
+
+                    <div *ngIf="!tourHappened">
+                        <button type="button"
+                                [routerLink]="['/activity', activity.id, 'edit']"
+                                class="btn btn-primary">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Wijzigen</span>
+                        </button>
+
+                        <button type="button"
+                                [routerLink]="['/', 'activity', { outlets: { popup: activity.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Verwijderen</span>
+                        </button>
+                    </div>
+
+                    <div *ngIf="tourHappened">
+                        <button type="submit"
+                                [routerLink]="['/presence', activity.id, 'activity']"
+                                class="btn btn-primary">
+                            <fa-icon [icon]="'users'"></fa-icon>&nbsp;<span> Aanwezigheden</span>
+                        </button>
+
+                        <button type="button"
+                                [routerLink]="['/report', activity.id, 'edit']"
+                                class="btn btn-primary">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Verslag</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

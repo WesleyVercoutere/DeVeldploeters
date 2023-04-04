@@ -1,0 +1,22 @@
+@import '../../../../content/scss/bootstrap-variables';
+
+.container {
+  background-color: $darkOpacity;
+}
+
+.card {
+  background-color: $darkOpacity;
+}
+
+.img-fluid {
+  max-width: 100%;
+  margin: 0px auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.img-logo {
+  height: 150px;
+  width: auto;
+  margin: 0px auto;
+}

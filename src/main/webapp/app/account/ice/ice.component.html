@@ -1,0 +1,57 @@
+<div class="container stretch bg-light p-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="clearfix">
+                <h2 id="page-heading">
+                    <span>Mijn ICE contacten</span>
+                    <button [routerLink]="['/account/ice/new']" class="btn btn-primary float-right jh-create-entity create-ice"
+                            id="jh-create-entity">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span> Nieuw ICE contact </span>
+                    </button>
+                </h2>
+            </div>
+
+            <hr/>
+
+            <div *ngIf="ices" class="table-responsive">
+                <table class="table table-striped table-borderless">
+                    <thead>
+                    <tr>
+                        <th><span>Voornaam</span></th>
+                        <th><span>Naam</span></th>
+                        <th><span>Telefoonnummer</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let iCE of ices ;trackBy: trackId">
+                        <td>{{iCE.firstName}}</td>
+                        <td>{{iCE.lastName}}</td>
+                        <td>{{iCE.phone}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+
+                                <button [routerLink]="['/account/ice', iCE.id, 'edit']"
+                                        class="btn btn-primary btn-sm"
+                                        type="submit">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline">Wijzigen</span>
+                                </button>
+                                <button [routerLink]="['/account', 'ice', { outlets: { popup: iCE.id + '/delete'} }]"
+                                        class="btn btn-danger btn-sm"
+                                        queryParamsHandling="merge"
+                                        replaceUrl="true"
+                                        type="submit">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Verwijderen</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

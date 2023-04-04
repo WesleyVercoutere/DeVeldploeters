@@ -1,0 +1,42 @@
+<div class="container stretch bg-light p-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form #editForm="ngForm" (ngSubmit)="save()" name="editForm" novalidate role="form">
+                <div class="clearfix">
+                    <h2 id="jhi-ice-heading">ICE contact toevoegen of wijzigen</h2>
+                </div>
+
+                <jhi-alert-error></jhi-alert-error>
+                <hr/>
+
+                <div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_lastName">Naam</label>
+                        <input [(ngModel)]="iCE.lastName" class="form-control" id="field_lastName" name="lastName"
+                               type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_firstName">Voornaam</label>
+                        <input [(ngModel)]="iCE.firstName" class="form-control" id="field_firstName" name="firstName"
+                               type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_phone">Telefoonnummer</label>
+                        <input [(ngModel)]="iCE.phone" class="form-control" id="field_phone" name="phone"
+                               type="text"/>
+                    </div>
+                </div>
+
+                <div>
+                    <button (click)="previousState()" class="btn btn-secondary" id="cancel-save" type="button">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Annuleren</span>
+                    </button>
+                    <button [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary" id="save-entity"
+                            type="submit">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Opslaan</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

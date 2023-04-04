@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title">Aanmelden</h4>
+    <button (click)="activeModal.dismiss('closed')" aria-label="Close" class="close" data-dismiss="modal" type="button">
+        <span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div *ngIf="authenticationError" class="alert alert-danger">
+                <strong>Failed to sign in!</strong> Please check your credentials and try again.
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <form (ngSubmit)="login()" [formGroup]="loginForm" class="form" role="form">
+                <div class="form-group">
+                    <label class="username-label" for="username">Email</label>
+                    <input class="form-control" formControlName="username" id="username" name="username" placeholder="email"
+                           type="text">
+                </div>
+                <div class="form-group">
+                    <label for="password">Wachtwoord</label>
+                    <input class="form-control" formControlName="password" id="password" name="password" placeholder="wachtwoord"
+                           type="password">
+                </div>
+
+                <button class="btn btn-primary" type="submit">Aanmelden</button>
+            </form>
+            <p></p>
+
+            <div class="alert alert-warning">
+                <a (click)="requestResetPassword()" class="alert-link">Wachtwoord vergeten?</a>
+            </div>
+
+        </div>
+    </div>
+</div>

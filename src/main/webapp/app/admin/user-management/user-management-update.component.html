@@ -1,0 +1,98 @@
+<div class="container stretch bg-light p-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form #editForm="ngForm" (ngSubmit)="save()" name="editForm" novalidate role="form">
+                <div class="clearfix" *ngIf="user.id != null">
+                    <div class="float-md-left">
+                        <h2><span> Wijzigen lid </span></h2>
+                    </div>
+                </div>
+
+                <div class="clearfix" *ngIf="user.id == null">
+                    <div class="float-md-left">
+                        <h2><span> Nieuw lid </span></h2>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div>
+                    <jhi-alert-error></jhi-alert-error>
+
+                    <div class="form-group">
+                        <label class="form-control-label">Voornaam</label>
+                        <input #firstNameInput="ngModel" [(ngModel)]="user.firstName" class="form-control"
+                               maxlength="50"
+                               name="firstName" type="text">
+
+                        <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
+                            <small *ngIf="firstNameInput.errors.maxlength"
+                                   class="form-text text-danger"
+                            >
+                                This field cannot be longer than 50 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">Naam</label>
+                        <input #lastNameInput="ngModel" [(ngModel)]="user.lastName" class="form-control" maxlength="50"
+                               name="lastName" type="text">
+
+                        <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
+                            <small *ngIf="lastNameInput.errors.maxlength"
+                                   class="form-text text-danger"
+                            >
+                                This field cannot be longer than 50 characters.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">Email</label>
+                        <input #emailInput="ngModel" [(ngModel)]="user.email" class="form-control" email
+                               maxlength="254" minlength="5" name="email" required type="email">
+
+                        <div *ngIf="emailInput.dirty && emailInput.invalid">
+                            <small *ngIf="emailInput.errors.required"
+                                   class="form-text text-danger">
+                                This field is required.
+                            </small>
+
+                            <small *ngIf="emailInput.errors.maxlength"
+                                   class="form-text text-danger"
+                            >
+                                This field cannot be longer than 100 characters.
+                            </small>
+
+                            <small *ngIf="emailInput.errors.minlength"
+                                   class="form-text text-danger"
+                            >
+                                This field is required to be at least 5 characters.
+                            </small>
+
+                            <small *ngIf="emailInput.errors.email"
+                                   class="form-text text-danger">
+                                Your email is invalid.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Profiles</label>
+                        <select [(ngModel)]="user.authorities" class="form-control" multiple name="authority">
+                            <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <button (click)="previousState()" class="btn btn-secondary" type="button">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
+                    >Cancel</span>
+                    </button>
+                    <button [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary" type="submit">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
